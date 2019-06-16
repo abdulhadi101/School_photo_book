@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 public class ViewPagerAdapter extends PagerAdapter {
     // Declare Variables
     Context context;
-    String[] rank;
+
     String[] Name;
     String[] Nickname;
     String[] Phonenumber;
@@ -42,7 +42,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-       return 0;
+       return Name.length;
     }
 
     @Override
