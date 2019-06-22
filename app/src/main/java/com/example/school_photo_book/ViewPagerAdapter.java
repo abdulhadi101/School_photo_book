@@ -27,6 +27,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
 
 
+
     public ViewPagerAdapter(Context context, String[] Name, String[] Nickname, String[] Phonenumber, String[] Address,
                             String[] Hobby, String[] Ambition, String[] comments, int[] photos) {
         this.context = context;

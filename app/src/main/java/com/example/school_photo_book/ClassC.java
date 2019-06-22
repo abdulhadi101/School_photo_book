@@ -80,6 +80,7 @@ public class ClassC extends AppCompatActivity {
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
+                final int NUM_PAGES = Name.length;
                 if (currentPage == NUM_PAGES-1) {
                     currentPage = 0;
                 }
