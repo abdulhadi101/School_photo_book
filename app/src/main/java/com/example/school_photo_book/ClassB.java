@@ -104,7 +104,8 @@ public class ClassB extends AppCompatActivity {
         R.drawable.aminaibrahim, R.drawable.khairatibrahim, R.drawable.shafaatusalihu, R.drawable.abbasyusuf, R.drawable.abdulmalikmanga, R.drawable.abdurrashidabdulhamid,
         R.drawable.abubakarmuhd, R.drawable.abubakarsalisu, R.drawable.ahmadtijjani, R.drawable.ahmadyahya, R.drawable.fadilaaminu, R.drawable.shafaatusalihu, R.drawable.hauwauadamu,
         R.drawable.hauwauhudu, R.drawable.ibrahimibrahim, R.drawable.isyakasani, R.drawable.khadijaabdullahi1, R.drawable.mardiyyanuru, R.drawable.girl, R.drawable.girl,
-        R.drawable.musaibrahim, R.drawable.nafiadahiru, R.drawable.rukayyaabubakar, R.drawable.fatimaabba,};
+        R.drawable.musaibrahim, R.drawable.nafiadahiru, R.drawable.rukayyaabubakar, R.drawable.fatimaabba, R.drawable.fatimaaliyusani, R.drawable.fatimaibrahim, R.drawable.umargarba,
+        R.drawable.salmanuabdullahi, R.drawable.mustaphamkabir, R.drawable.salihuinuwa, R.drawable.hafsatmuhdbawa, R.drawable.fatimamuhd, R.drawable.aishamuhdgarba};
 
         // Locate the ViewPager in viewpager_main.xml
         viewPager = findViewById(R.id.pagerb);

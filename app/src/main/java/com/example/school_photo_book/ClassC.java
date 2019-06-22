@@ -39,34 +39,37 @@ public class ClassC extends AppCompatActivity {
         setContentView(R.layout.activity_class_c);
 
         // Generate sample data
-        Name = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        Name = new String[] { "usman Ibrahim abubakar ","sulaiman ahmed marafa ","adamu Muhammad","Mahmood  jibrin","rayyanu abubakar","Abdulmajid AG yusuf",
+                "Abdulrahman Abubakar ","ahmad abdulhamid"," aisha Muhammad ","aishatu shehu ","aishatu yusuf","alamin kabir mu’azu","aliyu adamu alkali ",
+                "asma’u umar gital"," auwal m. umar ","bushra armaya’u ","Fatima batula sunusi","habab aminu ","hadiza ahmad Muhammad","hauwa musa ",
+                "Ibrahim Muhammad","kabir Muhammad","Khadija abdullahi launi ","Khadija Ibrahim","Khadija nuruddeen ","maimunatu Mahmood","Maryam salihu usman",
+                "shamsuddeen ahmad","nasir abubakar","nusaiba Mahmood ari","nusaiba sani jibrin","rufai abdullahi","sa’adtu abubakar yusuf","sadiq balarabe",
+                "saudat Ibrahim bala","sulaiman adamu sallama","ummukulthum ishaq ","yusuf abubakar yusuf","Zainab A. Abdullahi","Zainab Adamu"};
 
-        Nickname = new String[] { "China", "India", "United States",
-                "Indonesia", "Brazil", "Pakistan", "Nigeria", "Bangladesh",
-                "Russia", "Japan" };
-        Phonenumber = new String[] { "China", "India", "United States",
-                "Indonesia", "Brazil", "Pakistan", "Nigeria", "Bangladesh",
-                "Russia", "Japan" };
-        Address = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886", "182,912,000",
-                "170,901,000", "152,518,015", "143,369,806", "127,360,000" };
-        Hobby = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886", "182,912,000",
-                "170,901,000", "152,518,015", "143,369,806", "127,360,000" };
-        Ambition = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886", "182,912,000",
-                "170,901,000", "152,518,015", "143,369,806", "127,360,000" };
-        Comment = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886", "182,912,000",
-                "170,901,000", "152,518,015", "143,369,806", "127,360,000" };
-
-
+        Nickname = new String[] { "undy","sule bobo","suitor","officer","sayyadee","","","","","","","","","","","","","","","","","","","","","","","","","",
+                "","","","","","","","","","","" };
+        Phonenumber = new String[] { "09032816912","08141587444","09030695151","08141347379","09066817741","","","","","","","","","","","","","","","","","","",
+                "","","","","","","", "","","","","","","","","","","" };
+        Address = new String[] { "kobi street", "ilelah street gidan marafa opposite central mosque","kobi street","jaja quarters","nassarawa street Bauchi, behind marafa house",
+                "","","","","","","","","","","","","","","","","","","","","","","","","", "","","","","","","","","","",""};
+        Hobby = new String[] { "sister Halima","football","lovely","reading","reading","","","","","","","","","","","","","","","","","","","","","","","","","",
+                "","","","","","","","","","",""};
+        Ambition = new String[] { "news paper media","chief judge or profession","reporter","jonalis","lecturer","","","","","","","","","","","","","","","","","","","","",
+                "","","","","", "","","","","","","","","","",""};
+        Comment = new String[] { "the school is life and best","the school is life to best ","my allah his continuour bless our life","masha allah ","wish us the best of luck",
+                "","","","","","","","","","","","","","","","","","","","","","","","","",
+                "","","","","","","","","","",""};
 
 
-        photo = new int[] { R.drawable.abdul, R.drawable.abdul1,
-                R.drawable.abdul, R.drawable.abdul1,
-                R.drawable.abdul, R.drawable.abdul1, R.drawable.abdul,
-                R.drawable.abdul1, R.drawable.abdul, R.drawable.abdul1 };
+
+
+        photo = new int[] { R.drawable.girl, R.drawable.sulaimanahmed, R.drawable.adamumuhammad, R.drawable.mahmoodjibrin, R.drawable.rayyanuabubakr, R.drawable.abdulmajidag,
+        R.drawable.abdulrahmanabubakar, R.drawable.ahmadabdulhamid, R.drawable.aishamuhammad, R.drawable.aishatushehu, R.drawable.aishatuyusuf,
+        R.drawable.alaminkabir, R.drawable.aliyuadamu, R.drawable.asmauumar, R.drawable.auwalumar, R.drawable.bushraarmayau, R.drawable.fatimabatula,
+        R.drawable.habaaminu, R.drawable.hadizaahmad, R.drawable.hauwamusa, R.drawable.ibrahimmuhammad, R.drawable.kabirmuhammad, R.drawable.khadijaabdullahi1,
+        R.drawable.khadijaibrahim, R.drawable.khadijanurudeen, R.drawable.maimunatumahmood, R.drawable.maryamsalisu, R.drawable.shamsudeenahmad, R.drawable.nasirabubakar,
+        R.drawable.nusaibamahmood, R.drawable.nusaibasani, R.drawable.rufaiabdullahi, R.drawable.saudatibrahim, R.drawable.sulaimanadamu,
+        R.drawable.ummukhultum, R.drawable.yusufabubakar, R.drawable.zaibaaabdullahi, R.drawable.zainabadamu};
 
         // Locate the ViewPager in viewpager_main.xml
         viewPager = findViewById(R.id.pagerc);
