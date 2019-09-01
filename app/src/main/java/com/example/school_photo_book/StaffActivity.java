@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.WindowManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,9 +21,16 @@ public class StaffActivity extends AppCompatActivity {
 
     Timer timer;
     final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+    final long PERIOD_MS = 5000; // time in milliseconds between successive task executions.
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(StaffActivity.this, Categories.class);
+        startActivity(intent);
+        finish();
 
+    }
 
     // Declare Variables
     ViewPager viewPager;
@@ -30,85 +42,110 @@ public class StaffActivity extends AppCompatActivity {
    String[] StaffComment;
     int[] Staffphoto;
 
+    private MediaPlayer mMediaPlayer;
+
+    private AudioManager mAudioManager;
+
+    AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                // AUDIOFOCUS_LOSS TRANSIENT means we have lost audio focus for a short amount of time
+                // and AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK means we have lost audio focus
+                // our app still continues to play song at lower volume but in both cases,
+                // we want our app to pause playback and start it from beginning.
+                mMediaPlayer.pause();
+
+            } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                // it means we have gained focused and start playback
+                mMediaPlayer.start();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                // it means we have completely lost the focus and we
+                // have to stop the playback and free up the playback resources
+                releaseMediaPlayer();
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // Generate sample data
-        StaffName = new String[] { "HAMISU, KHADIJA ABUBAKAR", "Ameenah Abdullahi Dogo", "Maryam Salisu ", "Usman Usman Tama", "Sam’anatu Shuaibu Abdulhamid ",
-                "safwan Aminu", "hafsat Muhammad Danfulani", "Hajara Salihu Adam", "Nuhu Muhammad Malam", "Muhammad zakariyya", "Zainab Badamasi",
-                "munirat usman Abubakar", "pherteemarh Muhammad zubair", "hauwa’u badamasi", "hauwa’u Muhammad kabir", "ummisalma Muhammad Kabir", "Khadija yakubu",
-                "saadatu sani baraya","suwaiba nuru uba ", "sa’adatu ladan zailani ", "hafsat Ibrahim abdullahi", "salihu musa ghani", "usman baba shehu",
-                "rukayyah haruna waziri", "rukayya haruna", "khadija hussaini idris", "Fatima bala baba", "Sulaiman danjuma adamu", "lawizah ayubah abubakar",
-                "abubakar adamu sallama","abubakar a garba", "abubakar salisu abubakar", "AISHA abubakar kobi", "AMINA SAMINU LADAN", "BADIATU ABUBAKAR","DAUDA MUHAMMAD BABAJI",
-                "FATIMA ABDULLAHI MUSA", "FATIMA ALIYU IBRAHIM", "FATIMA ALIYU ISAH", "FATIMA AMINU AHMAD", "FATIMA IDRIS","FATIMA S. AMINU", "HAFIZA ABDULLAHI LAUNI",
-                "HALIMA ABBA JABIR", "HAUWA’U USMAN ABDULLAHI", "IBRAHIM AMINU vono", "KHADIJA ADAMU TATIMU ", "KHADIJA KABIR MU’AZU", "MARYAM ADAMU SAKWA",
-                "MARYAM SULAIMAN MUHAMMAD", "MUSA ADAMU SALLAMA", "MUSA BALA WUNTI", "NABIL ABDULMAJID", "NAJA’ATU IBRAHIM HASSAN", "RUKAYYA HUSAINI UMAR",
-                "RUKAYYA ZAKARIYYA", " SANI ISAH SABO", "SHU’AIBU MU’AZU", "SULAIMAN ALKASIM AHMAD", "UMAR ADAMU JIBRIN", "UMAR IBRAHIM","  YUSUF ADAMU MUHAMMAD",
-                "ZAIDU NASIR", "ZAINAB AHMAD ALIYU", "UMMUKHULTHUM YERO AHMAD", "sa’adatu Muhammad umar","","" };
+        StaffName = new String[] { "Sa'adatu Shu'aibu ","Ladi Hamma Muhammad","Hassan Abdullahi Maikano","Muhammad habib idris ","Maryam Abdullahi","Kabiru Ibrahim",
+                "Bala Dayyabu Lere ","Fatima Muhammad Tinja ","Abdullahi Dahiru	","Rabiatu Muhammad Ahmad ","Jamila Ibrahim Zwall",
+                "Nazir Mustapha Ahmad ","Yahaya Ahmad Isah","Muhammad Lawan ","Muhammad Shu’aibu Saba","Isma’il Garba ","Yusuf Bako Tunga",
+                "Abdullahi Dahiru Balbaya ","Abdul Ahmed","Zainab Ibrahim Haruna ","Abubakar Isah ","Babangida Adamu Maikano",
+                "Isyaka Muhammad Inuwa ","Ahmad Abdullahi Jibrin ","Ruth Taro ","Mustapha Shuaibu","Ayuba Garba ","Bilyaminu Ibrahim ",
+                "Mallam Dando K Alabe","Saminu Ladan Zailani ","Alhaji Abba Muhammad Inuwa (Ciroman Toro)","Munirat Abubakar ",
+                "Halima Ibrahim Abdullahi ","Usman Ahmad","Baba Sama’ila JIBRIN","Aliyah zubairu ","" };
 
-        Rank = new String[] { "Nernerh","Ammad or Muhna","Yusmar","Abberh Tama","Baby Sam'anatu","S.yellow","Sweet Danfulani","Iyatu","Amir Alaramma",
-                "Solves","zee baby","hanan","kayanta","mohiny","Jiddah","ummreery","hamra","kayanta","subeey","hafdat", "ameerah Abdoul Ahmad", "ghaneey",
-                "tijey", "rukayyah", "freety", "mamee", "teema","sulaiman","ammeey"," ","abba", " ", "", "", "", "", "", "", "","" ,"", "", "", "", "",
-                "", "dan doctor", "", "", "", "walida", "", "", "smally", "najah", "", "", "", "baffa", "", "", "", "", "", "", "Ummu", "dimple baby",""};
+        Rank = new String[] { "Principal (Pioneer) ","Vice Principal Academics ","Vice Principal  Admin/Geography Teacher",
+                "Examination Officer Internal/History Teacher","H.O.D Biology Department ","H.O.D Chemistry Department  ","H.O.D Physics Department ",
+                "Revenue/Agric Teacher ","Labour Master ","Teacher (English) ","-","Physics Teacher ","House Master (Blue House) ",
+                "Discipline Master/Teacher; Data Processing ","Class Teacher (Geography) ","Admission Officer/HOD Government ", "E.O VII",
+                "H.O.D Computer Science","Maths Teacher/Quiz and Games Master/Club Patron ","Teacher IRS/Blue House Mistress","HOD Hausa",
+                "Chemistry Teacher ","Health Science Teacher ","H.O.D Mathematics ","ChairPerson Press Club Society ","H.O.D Arabic . PAEO (1) ","Senior Master ",
+                "Patron MSSN","Agricultural Sci. Teacher/House Master Yellow ","SMBC chariman ","P.T.A Chairman ","Business Studies Teacher",
+                "Senior Mistress","E.O VI","Security","Economics Teacher",""};
 
-        StaffPhonenumber = new String[] { "09060721690","08034026316","07062685235","07084552019/ 08163565849","07030412669","08140701900/ 09077316886","08129897337",
-                "09065382912/ 09034832351", "08062670429","08148710044","07065898388","081028871246", "081028871246", "08168669192", "08130919198/ 08148804045",
-                "09032363199", "09039984192", "09077267313", "07069418288/ 09079299827", "09038500610/ 07084815416","08038194147","08130089812","08135714343",
-                "07068008155", "081734509009","08142739339","08101134727","08065439649","07053296653/ 081095450531", "","0816636580","","","","","","","","",
-                "","","","","","","","","", "09066367483/ 08133335349","","","","08167499942/ 08168706415","","", "09069769454","08149426615","","","", "08160667241",
-                "","","","","","07065821093","09034328164"};
+        StaffPhonenumber = new String[] { "08023539671","08188369360","08033062965","08055037675","07031103392","08167927010","08024476692","07030243203","08035467133",
+                "08022283882/ 08063150390","08053666194","08030695959","08038600285","08023282366","08162513577","07063589404","07011146855/ 07037062018","07037074540/ 08080655115",
+                "08064385561","09031654513","08133452461","08039129440", "07037508752","08062446425","07056409605","08067789184","08066567881/ 08023612600","08037474468",
+                "08067261641/ 08098309732","08023622194","08031184275/ 08086657079","08038400678","07035103988",
+                "08028711323","-","08064411318",""};
 
-        StaffAddress = new String[] { "FADAMAR MADA, BEHIND N.I.D.B","gwabbah","magaji quarters behind NNPC","filin kobi opp. Markaz","sabuwar kasuwa, railway road Bauchi ",
-                "kobi street behind sharia court Bauchi state", "nasarawa","Nassarawa near gwallaga mosque Bauchi", "bayan fomwan ganjuwa, behind zonal education Bauchi",
-                "nassarawa jahun, saleh saleh junction","fillin kwallon kobi Bauchi","yelwan makaranta", "ganjuwa lungun gidan ciroma opp gidan su abubakar assistant head boy",
-                "fillin kwallon kobi, kobi Bauchi","ATB housing estate Bauchi near police station","ATB housing estate opp no. 3 house near police station Bauchi","kobi street",
-                "late tafida house ganjuwa jahun road Bauchi, Bauchi state","unguwan jaki lungun gidan pali gidan baba nuru", "kobi street",
-                "Madinah quarters, right hand coner from mai anguwa mosque ","shehu wunti estate house no. 7","nassarawa, behind gwallaga mosque","gwallaga opp gwallaga mosque",
-                "yakubu wanka opp zaranda store", "nassarawa jahun isa yuguda crecent, Bauchi ","Karofin madaki street Bauchi","Nufawa","kobi behind school Bauchi, Bauchi state ",
-                "","nassarawa street, nassarawa ‘yankifi","","","","","","","","","","","","","","","","bayan gidan bare-bari kofar ran Bauchi, opp. Nanee NASFAT village","","",
-                "", "karofin madaki first transformer junction","","","B313 wunti street gidan kanwa"," unguwar jaki/ J/K quarters front of abdullahi sogiji house","","","",
-                "fadan bayak behind sawaba pharmacy","","","","","","","nassarawa street near shukra academy","madina qtrs. Along turun raod Bauchi", ""};
-
-
-        StaffComment = new String[] { "Cloud dance b’cox of wind, flowers sing b’cox of rain, grass grows b’cox of earth I live b’cox of u. u’re all the reason. Miss u all lovely frnds (ss 3 student) ",
-                "inshaAllah u can make It well","mashaa Allah","mashaallah I thank god","MASHA-ALLAH","I am very found you are saft so interligent reading the Quran not anytime sometime I am reading",
-                "I wish I see my English teacher before I leave","none has the right to be worshipped except Allah","I will never forget my friends In my life and those who show me their really love",
-                "no hurry in life, school life is the best","missing u all is a terrible dease my classmate we are together forever insha Allah ",
-                "masha’allah","mashaallah alhamdulillahi ala kulli halin, we have come the end of sec. school, wishing us all the best. Haert you so much frnds",
-                "yesterday I ask my heart something is missing what happen to my body answered, there is not heart ! Some one took it !!..... I miss my sate mate, never forget u",
-                "missing you could turn from pain to a pleasure, if a only knew that you were missing me too. Missing u my sweet sate mate",
-                "sad to say sai watarana to my gangacious sate mate, never forget u in my life ","insha Allah",
-                "every relationship has it problem but what makes It perfect is if u still want to be together when things go wrong ",
-                "I wish my school to be the best among the other schools. And I wish my fellow colliques to be respect our elders in every where in the world ","hasbunallahu wani-imal Wakil",
-                "hasbunallahu wani-imal Wakil","a word isn’t enough to say I miss you SS3 students", "school life is the best","Alhamdulillah", "masha allah",
-                "bravery is not persist in you errors, but to acknowledge that u are wrong, and not to repeat the error again ", "Masha Allah.","no condition is permanet",
-                "by god grace insha Allah.","","life is nothing without love and school is nothing without student ","","","","","","","","","","","","","","","",
-                "sure I miss my Rahama, I miss my friends all, may make us to successful in what ever we want, I miss our school life thank God we come to end of Dr. ITCS may Allah bless the sch & candidate of 2019 masallah. I miss you",
-                "","","", "may Allah grants us into jannatul Firdausi","","","I love school life, school life is the best",
-                "Alhamdulillah May Allah help us in our future ","","","","school life is the best","","","","","","",
-                "I miss you so much friends. Skull life is the best. SS 3 student neve give up, we the best among the rest",
-                "missing you is not my wished my sweet set met; I’m going, I’m not going because I don’t want go missing ladies hauwar Muhammad khabir my besty","" };
+        StaffAddress = new String[] { "Federal Lowcost Makama New Extension Bauchi ","Dutsen Tanshi Qtrs;  Near Tanshi Police Station Bauchi ",
+        "Near Bauchin Bauchi’s Masjid Unguwar Bauchi ","Inkil Unguwar Magaji ","Near Bayan Fada Meternity, Bauchi ",
+        "No. 1oa, Behind Old Cemetery, Fadamar Mada, Bauchi ","Nassarawa Jahun Bauchi ","Kobi Street House No. K Ii ",
+        "No: 44 Nufawa Quarters ","Nassarawa Jahun Opp. Cikare Mosque Bauchi ","Zango Sa’idawa","Sir, Kashim Ibrahim Road Old Gra Bauchi. ",
+        "Tudun Salmanu Opposite Malia Furniture ","Ganjuwa Jahun Street Bauchi ","Zango Area, Bauchi State ",
+        "Zannuwa Off Yakubu Wanka Street ","No. 7 – 22 Unity Housing Estate Dungal, Bauchi ",
+        "Makama Jahun Qtrs. Old Musaba Junction Bauchi ","Dr. Ibrahim Tahir Comprehensive School ","Wunti Street Bauchi  ",
+        "Unguwan Borno Bayan Primary Bauchi ","Wunti Street Bauchi ","-","Federal Low-Cost ","Yelwan Makaranta Behind Sabo Bakery ",
+        "Filin Kwallon Kobi  ","Jahun, Galadiman Bauchi Palace ","No. B373 Wunti Street Bauchi ",
+        "House No. 5 Herwagana Quarters Gombe Gombe State  ","K1 Kobi Street Bauchi  ",
+        "General Admin Department, Office Of The Head Of Service Bauchi ","House No C293 Gidan Liman Wase Raod Bauchi  ",
+        "Federal Low-Cost Bauchi ","Sii Jahun Street Barde Close, Neat Citu Stores, Bauchi State ","Kobi",
+        "Behind Primary Sch. Gida Dubu ",""};
 
 
+        StaffComment = new String[] { "I Am Proud Of My Second Set Of Students, They Are All Good. I Wish Them The Best ","Satisfactory",
+        "This Set Of Students Are Also Hard Working And Disciplined. I Wish Them Good Luck In Their Career ",
+        "A Responsible Student Is An Asset To The Society And This Is What We In Dr. Ibrahim Tahir GCMDSS Produce!","Education Is The Key To The World So Be Wise And Read ",
+        "One Of The Dedicated And Hard Working Set Of Students I Have Met, I Wish You All The Best In Your Future Endeavors ",
+        "Satisfactory","A Very Good Student, Keep It Up ","Good Conduct And Satisfactory For Them ",
+        "A Memorable Set With All Sorts Of Characters. I Wish You All A Very Successful Life, Remain Blessed.",
+        "When You Finish, Pls Develop Your Study Don’t Waste Your Time. I Wish You The Best In Life And Success In Your All Undertakings ",
+        "The Single Most Powerful Word That Make Or Destroy Anyone Is Acceptance. So Try As Much As Possible To Accept And Build From Your Humble Beginnings. I Wish You All The Best In Your Future Endeavors ", "They Are All Well Respected And Obedient Student During Their Period, I Wish Them Good Luck.",
+        "Be Faith And Honest Where Ever You Find Yourself And Be A Good Samaritan ","This Class Of Students Are The Most Dedicated Hardworking And Committed Set Of Student I Have Ever Thought In My Teaching Career. ","I Wish All The Out Going Ss Iii Students Class Of 2019 Success ",
+        "Fear Allah Everywhere You Go And Be A Good Helper ","My Students: May Allah Help You Through Out Your Studies And Your Life ",
+        "Life Is Full Of Ups And Downs, Thus Be Prepared To Face Reality Of Life And Let Your Secondary School Education Be A Stepping Stone In Your Life Career","-","Allah Ya Saku Sami Sakamakon Jarabawa Mai Kyau, Kuma Ya Zame Muku Mai Albarka",
+        "Always Be Good To Your Partners, They Should Be Good For You. ","If You Love Your Mental Health, Avoid Associating With The Unwise. ","-","I Have No Doubt, You Will Make It As You Go Fore. ",
+        "Our Prime Purpose In This World Is To Help Others, But If You Cant Help Them At Least Don’t Hurt Them  ","Hardworking, Dedication And Discipline Students  ","Self Discipline Is Commendable ","They Are Hardworking Diligence To Their Studies.  ","Very Obedient And Tolerant Student  ",
+        "Well Discipline And Committed Set Of Students  Commendable ","Satisfactory And Good Conduct  ",
+        "-","The Out Going Set Of 2018/2019 Academic Session Are Fully Committed To Their Academic Activities. I Will Use These Opportunity To Call On All Of You To Sit Up And Face The Future Challenges, May God Bless You All",
+        "-","Well Discipline Student",""
+};
 
 
-        Staffphoto = new int[] {R.drawable.khadijahamisu, R.drawable.ameenahabdullahi, R.drawable.maryamsalihu, R.drawable.usmanusman, R.drawable.samanatu,
-                R.drawable.safwanaminu, R.drawable.hafsatdanfulani, R.drawable.hajarasalihu, R.drawable.nuhumuhammad, R.drawable.muhammadzakariya,
-                R.drawable.girl, R.drawable.muniratusman, R.drawable.fatimamuhammad, R.drawable.girl, R.drawable.girl, R.drawable.ummisalmakabir, R.drawable.khadijayakubu,
-                R.drawable.saadatusani, R.drawable.suwaibanuru, R.drawable.saadatuladan, R.drawable.hafsaibrahim, R.drawable.salihumusa, R.drawable.usmanbaba,
-                R.drawable.rukayyaharuna, R.drawable.rukayyaharuna, R.drawable.khadijahussaini, R.drawable.fatimabala, R.drawable.sulaimandanjuma,
-                R.drawable.lawziyaayuba, R.drawable.abubakaradamu, R.drawable.abubakargarba, R.drawable.abubakarsalisu, R.drawable.aishaabubakar, R.drawable.aminasaminu,
-                R.drawable.badiatuabubakar, R.drawable.daudamuhammad, R.drawable.fatimamusa, R.drawable.fatimaaliyu, R.drawable.fatimaaliyuisah, R.drawable.fatimaaminu,
-                R.drawable.fatimaidris, R.drawable.fatimasaminu, R.drawable.hafizalauni, R.drawable.halimaabba, R.drawable.hauwau, R.drawable.girl, R.drawable.khadijakabir,
-                R.drawable.maryamadamu, R.drawable.maryamsulaiman, R.drawable.musaadamu, R.drawable.musabala, R.drawable.nabilabdulmajid, R.drawable.najaatu,  R.drawable.rukayyahusaini,
-                R.drawable.rukayyazakariyya, R.drawable.saniisah, R.drawable.shuaibu, R.drawable.sulaimanalkasim, R.drawable.umaradamu, R.drawable.umaribrahim, R.drawable.yusufadamu,
-                R.drawable.zaidunasir, R.drawable.zainabahmad, R.drawable.ummukhultum, R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl};
+
+
+        Staffphoto = new int[] {R.drawable.principal, R.drawable.viceprincipal, R.drawable.vpadmin, R.drawable.examofficerinternal, R.drawable.hodbiology, R.drawable.hodchemistry,
+        R.drawable.hodphysics, R.drawable.agricteacherrevenue, R.drawable.labourmaster, R.drawable.englishrabiatu, R.drawable.jamilastaff,R.drawable.physicsnazir, R.drawable.bluehousemaster,
+        R.drawable.displinemaster,R.drawable.geographysaba, R.drawable.adminofficer, R.drawable.eovii,R.drawable.hodcompscienc, R.drawable.abdulahmedstaff,R.drawable.zainabstaff, R.drawable.hodhausa,
+        R.drawable.chemteacher, R.drawable.healthscience, R.drawable.hodmaths, R.drawable.pressclub, R.drawable.arabichod,
+        R.drawable.seniormaster, R.drawable.patronmssn, R.drawable.yellowhousemaster, R.drawable.sbmcchairman,R.drawable.ptachairman,
+        R.drawable.businessstudies, R.drawable.seniormistress, R.drawable.eovi, R.drawable.security, R.drawable.girl,R.drawable.girl};
 
         // Locate the ViewPager in viewpager_main.xml
-        viewPager = findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager_staff);
         // Pass results to ViewPagerAdapter Class
         adapter = new ViewPagerAdapterStaff(StaffActivity.this, StaffName, Rank, StaffPhonenumber, StaffAddress,  StaffComment, Staffphoto);
         // Binds the Adapter to the ViewPager
@@ -121,7 +158,9 @@ public class StaffActivity extends AppCompatActivity {
             public void run() {
                 final int NUM_PAGES = StaffName.length;
                 if (currentPage == NUM_PAGES-1) {
-                    currentPage = 0;
+                    releaseMediaPlayer();
+                    Intent intent = new Intent(StaffActivity.this, Categories.class);
+                    startActivity(intent);
                 }
                 viewPager.setCurrentItem(currentPage++, true);
             }
@@ -137,6 +176,62 @@ public class StaffActivity extends AppCompatActivity {
 
 
     }
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mMediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mMediaPlayer.release();
 
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mMediaPlayer = null;
+
+            // Regardless of whether or not we were granted audio focus, abandon it. This also
+            // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
+            mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        releaseMediaPlayer();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        releaseMediaPlayer();
+
+        // Request audio focus so in order to play the audio file. The app needs to play a
+        // short audio file, so we will request audio focus with a short amount of time
+        // with AUDIOFOCUS_GAIN_TRANSIENT.
+        int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            //we have the audio focus now
+
+            // creates new media player object
+            // mMediaPlayer = MediaPlayer.create(getActivity(), words.get(position).getAudioResourceId());
+            mMediaPlayer = MediaPlayer.create(StaffActivity.this, R.raw.champions );
+            mMediaPlayer.start();
+
+            /*
+             * set on completion listener on the mediaplayer object
+             * and release media player object as soon song stops playing
+             */
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+
+                    // now the sound file has finished player, so free up the media player resources
+                    releaseMediaPlayer();
+                }
+            });
+        }
+    }
 }
 

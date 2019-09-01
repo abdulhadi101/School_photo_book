@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Categories"
-    >
+    tools:context=".Categories">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+
         android:layout_height="wrap_content">
 
         <FrameLayout
@@ -18,7 +20,6 @@
             android:layout_width="134dp"
             android:layout_height="145dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/frame6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/frame5"
@@ -29,29 +30,37 @@
                 android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="4dp"
-                app:cardBackgroundColor="@android:color/holo_green_dark"
+                app:cardBackgroundColor="@color/card_color"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/cap_3" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center"
                         android:text="Class B"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textAllCaps="true" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -71,29 +80,36 @@
                 android:id="@+id/card_view1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@android:color/holo_blue_light"
-                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/card_color"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_person_outline_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center"
                         android:text="Staffs"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textAllCaps="true" />
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -114,31 +130,37 @@
                 android:id="@+id/card_view2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="4dp"
-                app:cardBackgroundColor="@android:color/holo_purple"
+                app:cardBackgroundColor="@color/card_color"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_group_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center"
                         android:text="Group Pictures"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textAllCaps="false"
+                      />
 
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -147,7 +169,7 @@
             android:id="@+id/frame4"
             android:layout_width="134dp"
             android:layout_height="145dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/frame3"
             app:layout_constraintEnd_toEndOf="@+id/frame5"
@@ -158,28 +180,38 @@
                 android:id="@+id/card_view3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/card_color"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@android:color/darker_gray"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/cap_1" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Class c"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_gravity="center"
+                        android:text="Class C"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                         />
 
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -188,9 +220,10 @@
             android:id="@+id/frame5"
             android:layout_width="134dp"
             android:layout_height="145dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="112dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+
             app:layout_constraintEnd_toStartOf="@+id/frame1"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
@@ -200,31 +233,37 @@
                 android:id="@+id/card_view4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@android:color/holo_blue_dark"
-                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/card_color"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/cap_2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/black"
                         android:text="Class A"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
+                        android:textStyle="bold"
+                        android:textAllCaps="true" />
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -244,31 +283,36 @@
                 android:id="@+id/card_view5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@android:color/holo_orange_dark"
-                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/card_color"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="16dp"
                 app:contentPadding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_graduation_cap_png_3" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Excos"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_gravity="center"
+                        android:text="EXCOS"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textAllCaps="true" />
 
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>

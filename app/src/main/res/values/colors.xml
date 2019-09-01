@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#C9BCBC</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#8A8A85</color>
+    <color name="light_blue">#00B0FF</color>
+    <color name="light_green">#63A72A</color>
+    <color name="purple">#EA80FC</color>
+    <color name="orange">#F57C00</color>
+    <color name="red">#981A1A</color>
+
+    <color name="card_color">#F0F0EA</color>
+
     <color name="colorAccent">#C3C0C1</color>
 
 </resources>

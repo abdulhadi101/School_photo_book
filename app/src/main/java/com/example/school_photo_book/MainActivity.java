@@ -28,11 +28,20 @@ public class MainActivity extends AppCompatActivity {
     int[] fullPhoto;
 
     Button categories_btn;
+    Button button;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+            }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         categories_btn = findViewById(R.id.categories_btn);
+        button = findViewById(R.id.button);
 
 
         fullPhoto = new int[] { R.drawable.schoolphoto1, R.drawable.schoolphoto2, R.drawable.schoolphoto3, R.drawable.schoolphoto4,
@@ -43,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Categories.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutPage.class);
+                startActivity(intent);
+               finish();
+
             }
         });
 
