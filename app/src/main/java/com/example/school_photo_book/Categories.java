@@ -11,9 +11,6 @@ public class Categories extends AppCompatActivity {
 
     CardView cardA, cardB, cardC, cardStaff, cardExcos, cardGroup;
 
-
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -87,5 +84,11 @@ public class Categories extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
     }
 }

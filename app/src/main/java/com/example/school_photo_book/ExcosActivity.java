@@ -124,6 +124,7 @@ public class ExcosActivity extends AppCompatActivity {
                     releaseMediaPlayer();
                     Intent intent = new Intent(ExcosActivity.this, Categories.class);
                     startActivity(intent);
+                    finish();
                 }
                 viewPager.setCurrentItem(currentPage++, true);
             }

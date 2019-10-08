@@ -215,6 +215,7 @@ public class ClassB extends AppCompatActivity {
                     releaseMediaPlayer();
                     Intent intent = new Intent(ClassB.this, Categories.class);
                     startActivity(intent);
+                    finish();
                 }
                 viewPager.setCurrentItem(currentPage++, true);
             }

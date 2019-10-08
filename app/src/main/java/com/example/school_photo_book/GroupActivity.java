@@ -104,6 +104,7 @@ public class GroupActivity extends AppCompatActivity {
                     releaseMediaPlayer();
                     Intent intent = new Intent(GroupActivity.this, Categories.class);
                     startActivity(intent);
+                    finish();
                 }
                 viewPager.setCurrentItem(currentPage++, true);
             }

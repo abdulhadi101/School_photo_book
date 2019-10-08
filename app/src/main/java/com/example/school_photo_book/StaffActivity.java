@@ -161,6 +161,7 @@ public class StaffActivity extends AppCompatActivity {
                     releaseMediaPlayer();
                     Intent intent = new Intent(StaffActivity.this, Categories.class);
                     startActivity(intent);
+                    finish();
                 }
                 viewPager.setCurrentItem(currentPage++, true);
             }

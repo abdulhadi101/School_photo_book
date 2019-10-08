@@ -210,6 +210,7 @@ public class ClassA extends AppCompatActivity {
                     releaseMediaPlayer();
                     Intent intent = new Intent(ClassA.this, Categories.class);
                     startActivity(intent);
+                    finish();
 
                 }
                 viewPager.setCurrentItem(currentPage++, true);
